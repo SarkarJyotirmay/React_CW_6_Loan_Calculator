@@ -4,15 +4,14 @@ import { Chart as ChartJs } from "chart.js/auto";
 import { Pie } from "react-chartjs-2";
 
 function App() {
+  // input related state variables
   const [principal, setPrincipal] = useState(0);
   const [downPayment, setDownPayment] = useState(0);
   const [loanAmount, setLoanAmount] = useState(0);
   const [interestRate, setInterestRate] = useState(0);
+
+  // calculation related state variaables
   let yearsRef = useRef(0);
-
-  let chartRef = useRef("");
-  const [chartStatus, setChartStatus] = useState(false);
-
   const [monthlyInterestRate, setMonthlyInterestRate] = useState(0);
   const [numberOfPayments, setNumberOfPayments] = useState(0);
   const [monthlyEMI, setMonthlyEMI] = useState(0);
@@ -50,11 +49,11 @@ function App() {
   function calculateLoan(val) {
     yearsRef.current = val;
 
-    const r = interestRate / 100 / 12;
+    const r = interestRate / 100 / 12; // monthly interest rate
     const n = val * 12;
 
     const emi =
-      (loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+      (loanAmount * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1); // monthly EMI
     const totalEMI = emi * n;
     const totalRepayment = loanAmount + totalEMI;
     const interestPayed = totalRepayment - loanAmount;
